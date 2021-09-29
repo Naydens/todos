@@ -1,25 +1,34 @@
-import logo from './logo.svg';
-import './App.css';
+import React from "react";
+import Todo from "./Todo";
+import "./App.css";
 
-function App() {
-  return (
-    <div className="App">
-      <header className="App-header">
-        <img src={logo} className="App-logo" alt="logo" />
-        <p>
-          Edit <code>src/App.js</code> and save to reload.
-        </p>
-        <a
-          className="App-link"
-          href="https://reactjs.org"
-          target="_blank"
-          rel="noopener noreferrer"
-        >
-          Learn React
-        </a>
-      </header>
-    </div>
-  );
+export default class App extends React.Component {
+  constructor(props) {
+    super(props);
+  }
+
+  handleAddToDo() {
+    const input = document.querySelector(".add-to-do__input");
+    console.log(input.value);
+  }
+
+  render() {
+    return (
+      <div>
+        <div class="input-group mb-3">
+          <input
+            type="text"
+            className="form-control"
+            placeholder="input your information "
+          />
+          <div className="input-group-append">
+            <button className="btn btn-success" type="button">
+            Add
+            </button>
+          </div>
+        </div>
+        <Todo />
+      </div>
+    );
+  }
 }
-
-export default App;
