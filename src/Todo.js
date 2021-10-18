@@ -2,18 +2,15 @@ import React from "react";
 import "./Todo.css";
 
 export default class Todo extends React.Component {
+  constructor(props) {
+    super(props);
+  }
+
   render() {
     return (
-      <div class="input-group mb-3">
-        <input
-          type="text"
-          className="form-control"
-        />
-        <div className="input-group-append">
-          <button className="btn btn-danger" type="button">
-           I did
-          </button>
-        </div>
+      <div className="todoContainer">
+        <p className="todoContainer__p">{this.props.index  + this.props.obj.todo}</p>
+        <input type="checkbox" />
       </div>
     );
   }

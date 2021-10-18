@@ -1,33 +1,51 @@
 import React from "react";
-import Todo from "./Todo";
 import "./App.css";
+import Todo from "./Todo";
 
 export default class App extends React.Component {
   constructor(props) {
     super(props);
+    this.state = {
+      todos: [],
+    };
+    this.inputTodos = React.createRef();
   }
 
-  handleAddToDo() {
-    const input = document.querySelector(".add-to-do__input");
-    console.log(input.value);
-  }
+  handleAddToDo = (e) => {
+    e.preventDefault();
+    const { todos } = this.state;
+
+    let inputValue = this.inputTodos.current;
+    let key = Math.floor(Math.random() * (-1000000 - 1000000) + 1000000);
+    let objTodo = {
+      id: key,
+      todo: inputValue.value,
+    };
+
+    this.setState({
+      todos: [...todos, objTodo],
+    });
+    inputValue.value = "";
+  };
 
   render() {
+    const todosList = this.state.todos.map((todo,index) => (
+      <Todo key={todo.key} obj={todo} index={index+1} />
+    ));
+
     return (
       <div>
-        <div class="input-group mb-3">
-          <input
-            type="text"
-            className="form-control"
-            placeholder="input your information "
-          />
-          <div className="input-group-append">
-            <button className="btn btn-success" type="button">
-            Add
-            </button>
-          </div>
-        </div>
-        <Todo />
+        <h2>add new to do</h2>
+        <form
+          className="form"
+          onSubmit={(event) => {
+            this.handleAddToDo(event);
+          }}
+        >
+          <input type="text" placeholder="what to do" ref={this.inputTodos} />
+          <button>add</button>
+        </form>
+        {todosList}
       </div>
     );
   }
