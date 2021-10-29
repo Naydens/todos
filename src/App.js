@@ -2,6 +2,8 @@ import React from "react";
 import "./App.css";
 import Todo from "./Todo";
 
+let key = 0;
+
 export default class App extends React.Component {
   constructor(props) {
     super(props);
@@ -15,22 +17,21 @@ export default class App extends React.Component {
     e.preventDefault();
     const { todos } = this.state;
 
-    let inputValue = this.inputTodos.current;
-    let key = Math.floor(Math.random() * (-1000000 - 1000000) + 1000000);
+    let inputElem = this.inputTodos.current;
     let objTodo = {
-      id: key,
-      todo: inputValue.value,
+      id: key++,
+      text: inputElem.value,
     };
 
     this.setState({
       todos: [...todos, objTodo],
     });
-    inputValue.value = "";
+    inputElem.value = "";
   };
 
   render() {
     const todosList = this.state.todos.map((todo,index) => (
-      <Todo key={todo.key} obj={todo} index={index+1} />
+      <Todo key={todo.id} obj={todo} index={index+1} />
     ));
 
     return (
@@ -38,9 +39,7 @@ export default class App extends React.Component {
         <h2>add new to do</h2>
         <form
           className="form"
-          onSubmit={(event) => {
-            this.handleAddToDo(event);
-          }}
+          onSubmit={this.handleAddToDo}
         >
           <input type="text" placeholder="what to do" ref={this.inputTodos} />
           <button>add</button>
